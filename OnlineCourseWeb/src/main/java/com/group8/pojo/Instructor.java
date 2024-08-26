@@ -24,6 +24,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -76,6 +77,9 @@ public class Instructor implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instructorId")
     private Set<Course> courseSet;
+    
+    @Transient
+    private String fullName;
 
     public Instructor() {
     }
@@ -174,5 +178,14 @@ public class Instructor implements Serializable {
     public String toString() {
         return "com.group8.pojo.Instructor[ id=" + id + " ]";
     }
+
+    /**
+     * @return the fullName
+     */
+    public String getFullName() {
+        return userId.getLastName()+  " " + userId.getFirstName();
+    }
+
+ 
     
 }

@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
@@ -56,9 +57,9 @@ public class SpringSecurityConfigs extends WebSecurityConfigurerAdapter {
     @Bean
     public Cloudinary cloudinary() {
         Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", "dh1irfap0",
-                "api_key", "362769244261142",
-                "api_secret", "NtmhAnw9xAo3HurpxbFHy1Pth30",
+                "cloud_name", "djrv1hnrc",
+                "api_key", "192829863722195",
+                "api_secret", "3B5pimNzenJOPsN88KYKDS_chis",
                 "secure", true));
         return cloudinary;
     }
@@ -89,7 +90,7 @@ public class SpringSecurityConfigs extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/403"); // Trang lỗi truy cập bị từ chối
 
         http.authorizeRequests().antMatchers("/api/**").permitAll()
-                .antMatchers("/**").hasRole("ADMIN");
+                .antMatchers("/").hasRole("ADMIN");
 
         http.csrf().disable();
     }

@@ -4,7 +4,7 @@
  */
 package com.group8.repository;
 
-import com.group8.pojo.Course;
+import com.group8.pojo.Enrollment;
 import java.util.List;
 import java.util.Map;
 
@@ -12,14 +12,6 @@ import java.util.Map;
  *
  * @author thang
  */
-public interface CourseRepository {
-
-    List<Course> getCourse(Map<String, String> params);
-
-    void addOrUpCourse(Course course);
-
-    Course getCourseById(int id);
-
-    void deleteCourse(int id);
-
+public interface EnrollmentRepository {
+    List<Enrollment> getEnrollments(Map<String,String> params);
 }

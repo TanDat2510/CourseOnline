@@ -16,14 +16,18 @@
             <a href="<c:url value="/" />" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="<c:url value="/courses" />" class="nav-link">Contact</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="<c:url value="/drashboard" />" class="nav-link">Contact</a>
+            <a href="<c:url value="/courses" />" class="nav-link">Courses</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="<c:url value="/instructor" />" class="nav-link">Instructor</a>
         </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="<c:url value="/enrollments" />" class="nav-link">Enrollment</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="<c:url value="/invoice" />" class="nav-link">Invoice</a>
+        </li>
+       
     </ul>
 
     <!-- Right navbar links -->

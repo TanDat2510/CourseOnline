@@ -4,22 +4,19 @@
  */
 package com.group8.repository;
 
-import com.group8.pojo.Course;
+
+import com.group8.dto.EnrollmentDTO;
+import com.group8.dto.InvoiceDTO;
+import com.group8.pojo.Invoice;
 import java.util.List;
 import java.util.Map;
 
 /**
  *
- * @author thang
+ * @author TAN DAT
  */
-public interface CourseRepository {
-
-    List<Course> getCourse(Map<String, String> params);
-
-    void addOrUpCourse(Course course);
-
-    Course getCourseById(int id);
-
-    void deleteCourse(int id);
-
+public interface InvoiceRepository {
+    List<Invoice> getAllInvoice(Map<String, String> params);
+    Invoice getInvoiceById(int id);
+    
 }

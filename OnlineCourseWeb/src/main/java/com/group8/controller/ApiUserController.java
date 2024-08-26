@@ -5,8 +5,10 @@
 package com.group8.controller;
 
 import com.group8.components.JwtService;
+import com.group8.dto.AddUserDTO;
 import com.group8.dto.UserDTO;
 import com.group8.pojo.User;
+import com.group8.service.InstructorService;
 import com.group8.service.UserService;
 import java.security.Principal;
 import java.util.Map;
@@ -15,18 +17,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author huu-thanhduong
+ * @author TAN DAT
  */
 @RestController
 @RequestMapping("/api")
@@ -36,6 +41,9 @@ public class ApiUserController {
     private JwtService jwtService;
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private InstructorService instructorService;
 
     @PostMapping("/login")
     @CrossOrigin
@@ -65,5 +73,13 @@ public class ApiUserController {
         UserDTO userDTO = this.userService.getUserDTO(user.getName());
         // Trả về DTO trong ResponseEntity
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+    
+    @DeleteMapping("/instructor/{instructorId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable(value = "instructorId") int id) {
+        AddUserDTO t = this.instructorService.getInstructorById(id);
+        System.out.println("Hello" + this.instructorService.getInstructorById(id));
+        this.userService.deleteUserInstuctor(t.getIdInstructor());
     }
 }

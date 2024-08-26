@@ -19,4 +19,5 @@ public interface CourseService {
     List<Course> getCourse(Map<String, String> params);
     void addOrUpCourse(Course course);
     AddCourseDTO getCourseById(int id);
+    void deleteCourse(int id);
 }

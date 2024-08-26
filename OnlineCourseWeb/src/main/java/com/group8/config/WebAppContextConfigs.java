@@ -46,8 +46,8 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(
             ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**")
-                .addResourceLocations("/WEB-INF/resources/css/");
+//        registry.addResourceHandler("/css/**")
+//                .addResourceLocations("/WEB-INF/resources/css/");
         registry.addResourceHandler("/img/**")
                 .addResourceLocations("/WEB-INF/resources/images/");
         registry.addResourceHandler("/plugins/**")
@@ -57,7 +57,7 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
         registry.addResourceHandler("/dist/**")
                 .addResourceLocations("/WEB-INF/resources/dist/");
         registry.addResourceHandler("/pages/**")
-                .addResourceLocations("/WEB-INF/resources/pages/");
+                .addResourceLocations("/WEB-INF/pages/");
     }
 
 }

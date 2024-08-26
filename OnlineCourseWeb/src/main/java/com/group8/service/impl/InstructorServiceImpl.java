@@ -4,13 +4,10 @@
  */
 package com.group8.service.impl;
 
-import com.group8.dto.AddInstructorDTO;
 import com.group8.dto.AddUserDTO;
 import com.group8.dto.InstructorDTO;
 import com.group8.pojo.Instructor;
-import com.group8.pojo.User;
 import com.group8.repository.InstructorRepository;
-import com.group8.repository.UserRepository;
 import com.group8.service.InstructorService;
 import java.util.Date;
 import java.util.List;
@@ -25,18 +22,17 @@ import org.springframework.stereotype.Service;
  * @author thang
  */
 @Service("instructorDetailService")
-public class InstructorServiceImpl implements InstructorService{
+public class InstructorServiceImpl implements InstructorService {
 
     @Autowired
     private InstructorRepository instructorRepo;
-    @Autowired
-    private UserRepository userRepo;
+
     @Autowired
     private ModelMapper modelMapper;
-    
+
     @Override
     public List<InstructorDTO> getAllInstructorsDTO(Map<String,String>params) {
-         List<Instructor> instructors = this.instructorRepo.getAllInstructors();
+        List<Instructor> instructors = this.instructorRepo.getAllInstructors(params);
         return instructors.stream()
                 .map(i -> {
                     InstructorDTO instructorDTO = new InstructorDTO();
@@ -47,8 +43,8 @@ public class InstructorServiceImpl implements InstructorService{
     }
 
     @Override
-    public List<Instructor> getAllInstructors() {
-        return this.instructorRepo.getAllInstructors();
+    public List<Instructor> getAllInstructors(Map<String, String> params) {
+        return this.instructorRepo.getAllInstructors(params);
     }
 
     @Override
@@ -62,9 +58,9 @@ public class InstructorServiceImpl implements InstructorService{
     public AddUserDTO getInstructorById(int id) {
         Instructor instructor = this.instructorRepo.getInstructorById(id);
         AddUserDTO addUserDTO = new AddUserDTO();
-        
-        
+
         addUserDTO.setId(instructor.getId());
+        addUserDTO.setIdInstructor(instructor.getUserId().getId());
         addUserDTO.setFirstName(instructor.getUserId().getFirstName());
         addUserDTO.setLastName(instructor.getUserId().getLastName());
         addUserDTO.setEmail(instructor.getUserId().getEmail());
@@ -77,5 +73,6 @@ public class InstructorServiceImpl implements InstructorService{
         addUserDTO.setUserRole(instructor.getUserId().getUserRole());
         return addUserDTO;
     }
-    
+
+
 }

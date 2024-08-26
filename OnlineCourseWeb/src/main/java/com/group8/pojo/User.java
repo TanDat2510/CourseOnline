@@ -7,6 +7,7 @@ package com.group8.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -50,19 +52,8 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByUpdatedDate", query = "SELECT u FROM User u WHERE u.updatedDate = :updatedDate")})
 public class User implements Serializable {
 
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Set<Enrollment> enrollmentSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -126,6 +117,16 @@ public class User implements Serializable {
     private Instructor instructor;
     @Transient
     private MultipartFile file;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
+    public MultipartFile getFile() {
+        return file;
+    }
+    
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     public User() {
     }
@@ -253,6 +254,11 @@ public class User implements Serializable {
         this.instructor = instructor;
     }
 
+    public String getFullName() {
+        String s = this.lastName + " " + this.firstName;
+        return s;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -276,6 +282,15 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.group8.pojo.User[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Set<Enrollment> getEnrollmentSet() {
+        return enrollmentSet;
+    }
+
+    public void setEnrollmentSet(Set<Enrollment> enrollmentSet) {
+        this.enrollmentSet = enrollmentSet;
     }
 
 }

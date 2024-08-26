@@ -1,18 +1,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <c:url value='/courses/add-up' var="action"/>
-<div class="content-wrapper ">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Add Course</h1>
+                    <h1></h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<c:url value="/" />">Home</a></li>
-                        <li class="breadcrumb-item active">Add Course</li>
+                        <li class="breadcrumb-item active">
+                            <c:choose>
+                                <c:when test="${not empty addCourseDTO.id}">
+                                    Update Course
+                                </c:when>
+                                <c:otherwise>
+                                    Add Course
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
                     </ol>
                 </div>
             </div>
@@ -21,10 +30,27 @@
 
     <!-- Main content -->
     <section class="content">
-        <div >
+        <c:if test="${not empty errMsg}">
+            <div class="alert alert-danger">
+                ${errMsg}
+            </div>
+        </c:if>
+        <c:if test="${not empty successMsg}">
+            <div class="alert alert-success">
+                ${successMsg}
+            </div>
+        </c:if>
+        <div>
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">General</h3>
+                    <c:choose>
+                        <c:when test="${not empty addCourseDTO.id}">
+                            <h3 class="card-title">Update Course</h3>
+                        </c:when>
+                        <c:otherwise>
+                            <h3 class="card-title">Add Course</h3>
+                        </c:otherwise>
+                    </c:choose>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -33,58 +59,64 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    
                     <!-- Form thêm khóa h?c -->
                     <form:form method="POST" modelAttribute="addCourseDTO" enctype="multipart/form-data" action="${action}">
                         <form:hidden path="id" />
                         <form:hidden path="img" />
+
                         <div class="form-group">
                             <label for="title">Course Title</label>
                             <form:input path="title" id="title" class="form-control" />
                         </div>
+
                         <div class="form-group">
                             <label for="description">Course Description</label>
                             <form:textarea path="description" id="description" class="form-control" rows="4" />
                         </div>
+
                         <div class="form-group">
                             <label for="timeExperted">Time Expected</label>
                             <form:input path="timeExperted" id="timeExperted" class="form-control" />
                         </div>
+
                         <div class="form-group">
                             <label for="price">Price</label>
                             <form:input path="price" id="price" type="number" class="form-control" />
                         </div>
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <form:select path="status" id="status" class="form-control custom-select">
-                                <form:option value="ACTIVE">Active</form:option>
-                                <form:option value="INACTIVE">Inactive</form:option>
-                            </form:select>
-                        </div>
+
                         <div class="form-group">
                             <label for="courseType">Course Type</label>
                             <form:select path="courseType" id="courseType" class="form-control custom-select">
-                                <form:option value="ONLINE">Online</form:option>
-                                <form:option value="ON_OFF">On/Off</form:option>
+                                <form:options items="${courseTypesList}" />
                             </form:select>
                         </div>
+
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <form:select path="status" id="status" class="form-control custom-select">
+                                <form:options items="${courseStatusList}" />
+                            </form:select>
+                        </div>
+
                         <div class="form-group">
                             <label for="categoryId">Category</label>
                             <form:select path="categoryId" id="categoryId" class="form-control custom-select">
                                 <form:options items="${categories}" itemValue="id" itemLabel="name" />
                             </form:select>
                         </div>
+
                         <div class="form-group">
                             <label for="instructorId">Instructor</label>
                             <form:select path="instructorId" id="instructorId" class="form-control custom-select">
-                                <form:options items="${instructors}" itemValue="id" itemLabel="userId" />
+                                <form:options items="${instructors}" itemValue="id" itemLabel="fullName" />
                             </form:select>
                         </div>
+
                         <div class="form-group">
                             <label for="file">Course Image</label>
-                            <form:input path="file" id="file" type="file" class="form-control" />
+                            <form:input path="file" id="file" type="file" accept=".jpg,.png" class="form-control" />
                         </div>
-                        
+
                         <!-- Hi?n th? hình ?nh n?u có -->
                         <c:if test="${not empty addCourseDTO.img}">
                             <div class="form-group">
@@ -92,11 +124,18 @@
                                 <img src="<c:url value='${addCourseDTO.img}' />" alt="Course Image" class="img-thumbnail" style="max-width: 200px;"/>
                             </div>
                         </c:if>
-                        
+
                         <div class="row">
                             <div class="col-12">
-                                <a href="#" class="btn btn-secondary">Cancel</a>
-                                <input type="submit" value="Create new Course" class="btn btn-success float-right">
+                                <a href="<c:url value="/courses"/>" class="btn btn-secondary">Cancel</a>
+                                <c:choose>
+                                    <c:when test="${not empty addCourseDTO.id}">
+                                        <input type="submit" value="Update Course" class="btn btn-success float-right">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="submit" value="Create New Course" class="btn btn-success float-right">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </form:form>

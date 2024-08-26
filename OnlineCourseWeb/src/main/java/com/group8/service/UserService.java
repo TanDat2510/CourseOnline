@@ -17,9 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface UserService extends UserDetailsService {
     User getUserByUsername(String username);
-    AddUserDTO getUserById(Integer id);
     UserDTO getUserDTO(String username);
     boolean authUser(String username, String password);
     UserDTO addUser(Map<String, String> params, MultipartFile avatar);
+    AddUserDTO getUserById(Integer id);
     void addUserInstructor(User user);
+    void deleteUserInstuctor(int id);
 }

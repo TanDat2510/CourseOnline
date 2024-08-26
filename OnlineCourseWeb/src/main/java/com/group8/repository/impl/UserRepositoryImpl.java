@@ -4,7 +4,6 @@
  */
 package com.group8.repository.impl;
 
-
 import com.group8.pojo.User;
 import com.group8.repository.UserRepository;
 import javax.persistence.Query;
@@ -37,22 +36,19 @@ public class UserRepositoryImpl implements UserRepository {
         return (User) q.getSingleResult();
 
     }
-    
+
     @Override
     public boolean authUser(String username, String password) {
-        User  u = this.getUserByUsername(username);
-        
+        User u = this.getUserByUsername(username);
+
         return this.passEncoder.matches(password, u.getPassword());
     }
-    
+
     @Override
     public User addUser(User u) {
         Session s = this.factory.getObject().getCurrentSession();
-        if(u.getId()!=null){
-            s.update(u);
-        }else{
-            s.save(u);
-        }   
+        s.save(u);
+
         return u;
     }
 
@@ -60,5 +56,12 @@ public class UserRepositoryImpl implements UserRepository {
     public User getUserByID(int id) {
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(User.class, id);
+    }
+
+    @Override
+    public void deleteUserInstructor(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        User u = this.getUserByID(id);
+        s.delete(u);
     }
 }

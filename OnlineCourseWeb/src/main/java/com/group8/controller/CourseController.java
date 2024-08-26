@@ -9,13 +9,16 @@ import com.group8.pojo.Category;
 import com.group8.pojo.Course;
 import com.group8.pojo.CourseStatus;
 import com.group8.pojo.CourseType;
+import com.group8.pojo.EnrollmentStatus;
 import com.group8.pojo.Instructor;
 import com.group8.service.CategoryService;
 import com.group8.service.CourseService;
 import com.group8.service.InstructorService;
+import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,19 +45,41 @@ public class CourseController {
     private CategoryService categoryService;
     @Autowired
     private InstructorService instructorService;
+    @Autowired
+    private Environment env;
 
     @ModelAttribute
     public void commAttrs(Model model) {
         model.addAttribute("categories", categoryService.getCates());
-        model.addAttribute("instructor", instructorService.getAllInstructors());
+        model.addAttribute("instructors", instructorService.getAllInstructors(null));
         model.addAttribute("courseStatusList", CourseStatus.values());
         model.addAttribute("courseTypesList", CourseType.values());
+        model.addAttribute("total", this.courseService.getCourse(null));
+        model.addAttribute("enrolllmentStatusList", EnrollmentStatus.values());
     }
 
     @RequestMapping("/courses")
     public String courseView(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("courses", this.courseService.getCourse(params));
+        if (params.get("page") == null) {
+            params.put("page", "1");
+        }
+        List<Course> courses = this.courseService.getCourse(params);
 
+        int total = this.courseService.getCourse(null).size();
+
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (!entry.getKey().equals("page") && entry.getValue() != null && !entry.getValue().isEmpty()) {
+                params.remove("page");
+                total = this.courseService.getCourse(params).size();
+                break;
+            }
+        }
+        int PAGE_MAX = Integer.parseInt(env.getProperty("page.size.course"));
+
+        int pageTotal = (int) Math.ceil((double) total / PAGE_MAX);
+
+        model.addAttribute("courses", courses);
+        model.addAttribute("pageTotal", pageTotal); // gửi biến tổng trang để phân trang
         return "course";
     }
 

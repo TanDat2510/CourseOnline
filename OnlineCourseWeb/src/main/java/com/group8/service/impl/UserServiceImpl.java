@@ -6,10 +6,8 @@ package com.group8.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-
 import com.group8.dto.AddUserDTO;
 import com.group8.dto.UserDTO;
-
 import com.group8.pojo.CustomUserDetails;
 import com.group8.pojo.User;
 import com.group8.repository.UserRepository;
@@ -96,24 +94,6 @@ public class UserServiceImpl implements UserService {
         return userDTO;
     }
 
-    @Override//Thêm User role INSTRUCTOR
-    public void addUserInstructor(User user) {
-        if (!user.getFile().isEmpty()) {
-            try {
-                Map<String, Object> res = this.cloudinary.uploader().upload(user.getFile().getBytes(),
-                        ObjectUtils.asMap("resource_type", "auto"));
-                user.setAvatar(res.get("secure_url").toString());
-            } catch (IOException ex) {
-                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        user.setActive(Boolean.TRUE);
-        user.setCreatedDate(new Date());
-        user.setUpdatedDate(new Date());
-
-        this.userRepo.addUser(user);
-    }
-
     @Override
     public UserDTO getUserDTO(String username) {
         User u = this.userRepo.getUserByUsername(username);
@@ -136,6 +116,29 @@ public class UserServiceImpl implements UserService {
         addUserDTO.setFile(user.getFile());
 
         return addUserDTO;
+    }
+
+    @Override//Thêm User role INSTRUCTOR
+    public void addUserInstructor(User user) {
+        if (!user.getFile().isEmpty()) {
+            try {
+                Map<String, Object> res = this.cloudinary.uploader().upload(user.getFile().getBytes(),
+                        ObjectUtils.asMap("resource_type", "auto"));
+                user.setAvatar(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        user.setActive(Boolean.TRUE);
+        user.setCreatedDate(new Date());
+        user.setUpdatedDate(new Date());
+
+        this.userRepo.addUser(user);
+    }
+
+    @Override
+    public void deleteUserInstuctor(int id) {
+        this.userRepo.deleteUserInstructor(id);
     }
 
 }

@@ -79,4 +79,9 @@ public class CourseServiceImpl implements CourseService {
         return addCourseDTO;
         
     }
+
+    @Override
+    public void deleteCourse(int id) {
+        this.courseRepo.deleteCourse(id);
+    }
 }

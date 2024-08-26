@@ -10,10 +10,9 @@ import lombok.Data;
  *
  * @author TAN DAT
  */
-
 @Data
 public class AddInstructorDTO {
-
+    
     /**
      * @return the expertise
      */
@@ -180,4 +179,5 @@ public class AddInstructorDTO {
     
     private String expertise;
     private String description;
+    
 }

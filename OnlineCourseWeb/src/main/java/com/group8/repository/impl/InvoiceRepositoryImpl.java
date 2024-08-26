@@ -4,9 +4,10 @@
  */
 package com.group8.repository.impl;
 
-import com.group8.pojo.Course;
-import com.group8.pojo.Instructor;
-import com.group8.repository.InstructorRepository;
+import com.group8.dto.InvoiceDTO;
+import com.group8.pojo.Invoice;
+import com.group8.pojo.InvoiceStatus;
+import com.group8.repository.InvoiceRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,11 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author thang
+ * @author TAN DAT
  */
 @Repository
 @Transactional
-public class InstructorRepositoryImpl implements InstructorRepository {
+public class InvoiceRepositoryImpl implements InvoiceRepository {
 
     private static final int PAGE_SIZE = 6;
 
@@ -35,28 +36,29 @@ public class InstructorRepositoryImpl implements InstructorRepository {
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<Instructor> getAllInstructors(Map<String, String> params) {
+    public List<Invoice> getAllInvoice(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<Instructor> q = b.createQuery(Instructor.class);
-        Root root = q.from(Instructor.class);
+        CriteriaQuery<Invoice> q = b.createQuery(Invoice.class);
+        Root root = q.from(Invoice.class);
         q.select(root);
         if (params != null) {
             List<Predicate> predicates = new ArrayList<>();
             String kw = params.get("kw");
-            String userId = params.get("userId");
-            
+            String status = params.get("status");
+
             if (kw != null && !kw.isEmpty()) {
-                Predicate p1 = b.like(root.get("expertise"), String.format("%%%s%%", kw));
+                Predicate p1 = b.like(root.get("payerName"), String.format("%%%s%%", kw));
                 predicates.add(p1);
             }
-            if (userId != null && !userId.isEmpty()) {
-                Predicate p2 = b.equal(root.get("userId"), Integer.parseInt("userId"));
+            if (status != null && !status.isEmpty()) {
+                InvoiceStatus statusEnum = InvoiceStatus.valueOf(status.toUpperCase());
+                Predicate p2 = b.equal(root.get("status"), statusEnum);
                 predicates.add(p2);
             }
             q.where(predicates.toArray(Predicate[]::new));
         }
-        
+
         Query query = s.createQuery(q);
 
         if (params != null) {
@@ -73,20 +75,9 @@ public class InstructorRepositoryImpl implements InstructorRepository {
     }
 
     @Override
-    public Instructor addInstructor(Instructor i) {
+    public Invoice getInvoiceById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        if (i.getId() != null) {
-            s.update(i);
-        } else {
-            s.save(i);
-        }
-        return i;
-    }
-
-    @Override
-    public Instructor getInstructorById(int id) {
-        Session s = this.factory.getObject().getCurrentSession();
-        return s.get(Instructor.class, id);
+        return s.get(Invoice.class, id);
     }
 
 }
