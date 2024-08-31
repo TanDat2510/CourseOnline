@@ -4,11 +4,13 @@
  */
 package com.group8.service.impl;
 
+import com.group8.dto.EnrollmentDTO;
 import com.group8.pojo.Enrollment;
 import com.group8.repository.EnrollmentRepository;
 import com.group8.service.EnrollmentService;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +28,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     public List<Enrollment> getEnrollments(Map<String, String> params) {
         return this.enrollmentRepo.getEnrollments(params);
     }
+
+    
 
 }

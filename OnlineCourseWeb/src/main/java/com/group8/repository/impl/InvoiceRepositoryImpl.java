@@ -4,9 +4,7 @@
  */
 package com.group8.repository.impl;
 
-import com.group8.dto.InvoiceDTO;
 import com.group8.pojo.Invoice;
-import com.group8.pojo.InvoiceStatus;
 import com.group8.repository.InvoiceRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +50,8 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
                 predicates.add(p1);
             }
             if (status != null && !status.isEmpty()) {
-                InvoiceStatus statusEnum = InvoiceStatus.valueOf(status.toUpperCase());
-                Predicate p2 = b.equal(root.get("status"), statusEnum);
+                Boolean statusValue = status.equalsIgnoreCase("PAID") ? Boolean.TRUE : Boolean.FALSE;
+                Predicate p2 = b.equal(root.get("status"), statusValue);
                 predicates.add(p2);
             }
             q.where(predicates.toArray(Predicate[]::new));

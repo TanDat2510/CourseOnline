@@ -4,16 +4,13 @@
  */
 package com.group8.service;
 
-import com.group8.dto.EnrollmentDTO;
-import com.group8.pojo.Enrollment;
-import java.util.List;
-import java.util.Map;
+import com.group8.pojo.User;
+import org.springframework.mail.javamail.JavaMailSender;
 
 /**
  *
- * @author thang
+ * @author TAN DAT
  */
-public interface EnrollmentService {
-    List<Enrollment> getEnrollments(Map<String,String> params);
-    
+public interface EmailService {
+    public void sendSimpleMessage(User u);
 }

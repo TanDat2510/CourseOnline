@@ -117,9 +117,7 @@ public class User implements Serializable {
     private Instructor instructor;
     @Transient
     private MultipartFile file;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    
     public MultipartFile getFile() {
         return file;
     }

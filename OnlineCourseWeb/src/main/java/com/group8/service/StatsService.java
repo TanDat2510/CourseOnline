@@ -4,20 +4,12 @@
  */
 package com.group8.service;
 
-import com.group8.dto.EnrollmentDTO;
-import com.group8.dto.InvoiceDTO;
-
-import com.group8.pojo.Invoice;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author TAN DAT
  */
-public interface InvoiceService {
-    
-    List<Invoice> getAllInvoice(Map<String,String>params);
-    List<EnrollmentDTO> getInvoiceById(int id);
-    
+public interface StatsService {
+    List<Object[]> stastRevenueByMonth();
 }

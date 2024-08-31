@@ -23,4 +23,5 @@ public interface UserService extends UserDetailsService {
     AddUserDTO getUserById(Integer id);
     void addUserInstructor(User user);
     void deleteUserInstuctor(int id);
+    void changePassword(User user);
 }

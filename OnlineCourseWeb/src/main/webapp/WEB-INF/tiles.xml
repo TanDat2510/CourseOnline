@@ -30,6 +30,10 @@
         <put-attribute name="titles" value="Danh sách hóa đơn"/>
         <put-attribute name="content" value="/WEB-INF/pages/invoice.jsp"/>
     </definition>
+    <definition name="stats" extends="baseLayout">
+        <put-attribute name="titles" value="Thống kê doanh thu"/>
+        <put-attribute name="content" value="/WEB-INF/pages/stats.jsp"/>
+    </definition>
     
     <definition name="home" extends="baseLayout">
         <put-attribute name="title" value="Trang chủ" />

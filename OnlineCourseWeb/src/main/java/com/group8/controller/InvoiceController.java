@@ -5,18 +5,15 @@
 package com.group8.controller;
 
 import com.group8.dto.EnrollmentDTO;
-import com.group8.pojo.Instructor;
 import com.group8.pojo.Invoice;
-import com.group8.service.InstructorService;
+
 import com.group8.service.InvoiceService;
-import com.group8.service.UserService;
+import java.util.Arrays;
+
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,21 +50,26 @@ public class InvoiceController {
         int PAGE_MAX = Integer.parseInt(env.getProperty("page.size.invoice"));
         int pageTotal = (int) Math.ceil((double) total / PAGE_MAX);
         model.addAttribute("invoice", invoice);
+        model.addAttribute("statusOptions", Arrays.asList("PAID", "NOT_YET"));
         model.addAttribute("pageTotal", pageTotal);
         System.out.println("HELO" + pageTotal);
         return "invoice";
     }
 
+    
     @GetMapping("/invoice/view-details/{invoiceId}")
-    public String detailsViewInvoice(Model model, @PathVariable(value = "invoiceId") int id) {
-//        List<EnrollmentDTO> enrollmentDTOs = invoiceService.getInvoiceById(id);
-        model.addAttribute("enrollmentDTO", this.invoiceService.getInvoiceById(id));
+    public String detailsViewInvoice(Model model, @PathVariable("invoiceId") int id) {
+        List<EnrollmentDTO> enrollmentDTOs = invoiceService.getInvoiceById(id);
+        // Lấy danh sách các đối tượng trong enrollmentDTO có liên quan đến id hóa đơn
+        if (enrollmentDTOs == null || enrollmentDTOs.isEmpty()) {
+            // Xử lý trường hợp không tìm thấy dữ liệu đăng ký
+            model.addAttribute("message", "Không tìm thấy đăng ký nào cho hóa đơn này.");
+            return "invoice-details";
+        }
 
+        model.addAttribute("enrollmentDTOs", enrollmentDTOs);
         System.out.println("HelloAA" + this.invoiceService.getInvoiceById(id));
-
         return "invoice-details";
     }
-
-    
-
+   
 }

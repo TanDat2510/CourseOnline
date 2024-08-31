@@ -185,5 +185,6 @@ public class InvoiceDTO {
     private Date updatedDate;
     private Integer userId;
     private Integer courseId;    
+
    
 }

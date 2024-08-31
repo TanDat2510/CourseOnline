@@ -59,9 +59,9 @@
                         <label for="status">Status</label>
                         <select name="status" id="status" class="form-control">
                             <option value="">All Status</option>
-                            <c:forEach var="status" items="${InvoiceStatus}">
-                                <option value="${status}" ${param.status == status ? 'selected' : ''}>
-                                    ${status}
+                            <c:forEach var="statusOption" items="${statusOptions}">
+                                <option value="${statusOption}" ${param.status == statusOption ? 'selected' : ''}>
+                                    ${statusOption}
                                 </option>
                             </c:forEach>
                         </select>

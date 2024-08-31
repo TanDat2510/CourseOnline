@@ -5,10 +5,12 @@
 package com.group8.service.impl;
 
 import com.group8.dto.EnrollmentDTO;
+import com.group8.pojo.Enrollment;
 
 import com.group8.pojo.Invoice;
 import com.group8.repository.InvoiceRepository;
 import com.group8.service.InvoiceService;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -30,46 +32,38 @@ public class InvoiceServiceImpl implements InvoiceService {
         return this.invoiceRepo.getAllInvoice(params);
     }
 
+
     @Override
-    public EnrollmentDTO getInvoiceById(int id) {
+    public List<EnrollmentDTO> getInvoiceById(int id) {
         Invoice invoice = this.invoiceRepo.getInvoiceById(id);
-        EnrollmentDTO enrollmentDTO = new EnrollmentDTO();
-        enrollmentDTO.setId(invoice.getId());
-        enrollmentDTO.setInvoiceNumber(invoice.getInvoiceNumber());
-        enrollmentDTO.setPayerName(invoice.getPayerName());
-        enrollmentDTO.setPayerEmail(invoice.getPayerEmail());
+
+        // Chuyển đổi PersistentSet thành List
+        List<Enrollment> enrollments = new ArrayList<>(invoice.getEnrollmentSet());
+
+        List<EnrollmentDTO> enrollmentDTOs = new ArrayList<>();
         
-        enrollmentDTO.setCreatedDate(new Date());
-        enrollmentDTO.setUpdatedDate(new Date());
 
-        System.out.print("helo" + invoice);
+        for (Enrollment enrollment : enrollments) {
+            EnrollmentDTO enrollmentDTO = new EnrollmentDTO();
+            enrollmentDTO.setId(enrollment.getId());
+            enrollmentDTO.setInvoiceNumber(invoice.getInvoiceNumber());
+            enrollmentDTO.setPayerName(invoice.getPayerName());
+            enrollmentDTO.setPayerEmail(invoice.getPayerEmail());
+            enrollmentDTO.setTotalAmount(invoice.getTotalAmount());
+            enrollmentDTO.setUserId(enrollment.getUserId());
+            enrollmentDTO.setFirstName(enrollment.getUserId().getFirstName());
+            enrollmentDTO.setPayerPhone(invoice.getPayerPhone());
+            enrollmentDTO.setLastName(enrollment.getUserId().getLastName());
+            enrollmentDTO.setCourseId(enrollment.getCourseId());
+            enrollmentDTO.setTitle(enrollment.getCourseId().getTitle());
+            enrollmentDTO.setPrice(enrollment.getCourseId().getPrice());
+            enrollmentDTO.setCreatedDate(new Date());
+            enrollmentDTO.setUpdatedDate(new Date());
+            enrollmentDTOs.add(enrollmentDTO);
+        }
 
-        return enrollmentDTO;
 
+        return enrollmentDTOs;
     }
-
-//    @Override
-//    public List<EnrollmentDTO> getInvoiceById(int id) {
-//        Invoice invoice = this.invoiceRepo.getInvoiceById(id);
-//
-//        List<Enrollment> enrollments = (List<Enrollment>) invoice.getEnrollmentSet();
-//
-//        List<EnrollmentDTO> enrollmentDTOs = new ArrayList<>();
-//
-//        for (Enrollment enrollment : enrollments) {
-//            EnrollmentDTO enrollmentDTO = new EnrollmentDTO();
-//            enrollmentDTO.setId(enrollment.getId());
-//            enrollmentDTO.setInvoiceNumber(invoice.getInvoiceNumber());
-//            enrollmentDTO.setPayerName(invoice.getPayerName());
-//            enrollmentDTO.setPayerEmail(invoice.getPayerEmail());
-//            enrollmentDTO.setUserId(enrollment.getUserId()); 
-//            enrollmentDTO.setCourseId(enrollment.getCourseId());
-//            enrollmentDTO.setCreatedDate(new Date());
-//            enrollmentDTO.setUpdatedDate(new Date());
-//            enrollmentDTOs.add(enrollmentDTO);
-//        }
-//
-//        return enrollmentDTOs;
-//    }
 
 }

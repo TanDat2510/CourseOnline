@@ -30,7 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author admin
  */
-@Service("userDetailsService")
+//@Service("userDetailsService")
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -139,6 +140,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserInstuctor(int id) {
         this.userRepo.deleteUserInstructor(id);
+    }
+    
+    @Override
+    public void changePassword(User user) {
+        user.setPassword(this.passEncoder.encode(user.getPassword()));
+        this.userRepo.changePassword(user);
     }
 
 }

@@ -6,6 +6,7 @@ package com.group8.repository.impl;
 
 import com.group8.pojo.Course;
 import com.group8.pojo.Instructor;
+import com.group8.pojo.User;
 import com.group8.repository.InstructorRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Map;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
@@ -51,8 +53,9 @@ public class InstructorRepositoryImpl implements InstructorRepository {
                 predicates.add(p1);
             }
             if (userId != null && !userId.isEmpty()) {
-                Predicate p2 = b.equal(root.get("userId"), Integer.parseInt("userId"));
-                predicates.add(p2);
+                Join<Instructor, User> userJoin = root.join("userId");
+                Predicate userIdPredicate = b.equal(userJoin.get("id"), userId);
+                predicates.add(userIdPredicate);
             }
             q.where(predicates.toArray(Predicate[]::new));
         }

@@ -85,14 +85,18 @@ public class ApiCourseController {
     public void delete(@PathVariable(value = "courseId") int id) {
         this.courseService.deleteCourse(id);
     }
-
-    @Autowired
-    private InvoiceService invoiceService;
-
+    
+//    @Autowired
+//    private InvoiceService invoiceService;
+//
 //    @GetMapping("/invoice/view-details/{invoiceId}")
-//    public ResponseEntity<EnrollmentDTO> detailsViewInvoice(@PathVariable(value = "invoiceId") int id) {
-//        EnrollmentDTO enrollmentDTO = (EnrollmentDTO) this.invoiceService.getInvoiceById(id);
-//        return new ResponseEntity<>(enrollmentDTO, HttpStatus.OK);
+//    public ResponseEntity<List<EnrollmentDTO>> detailsViewInvoice(@PathVariable("invoiceId") int id) {
+//        List<EnrollmentDTO> enrollmentDTOs = invoiceService.getInvoiceById(id);
+//
+//        if (enrollmentDTOs == null || enrollmentDTOs.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(enrollmentDTOs, HttpStatus.OK);
 //    }
 
 }

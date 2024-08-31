@@ -93,7 +93,7 @@ public class Invoice implements Serializable {
     @Column(name = "updated_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
-    @OneToMany(mappedBy = "invoiceId")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "invoiceId")
     private Set<Enrollment> enrollmentSet;
     
     
@@ -223,5 +223,6 @@ public class Invoice implements Serializable {
     public String toString() {
         return "com.group8.pojo.Invoice[ id=" + id + " ]";
     }
+
     
 }

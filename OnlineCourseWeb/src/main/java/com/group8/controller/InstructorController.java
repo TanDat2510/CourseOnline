@@ -6,6 +6,7 @@ package com.group8.controller;
 
 import com.group8.dto.AddUserDTO;
 import com.group8.pojo.Instructor;
+import static com.group8.pojo.Instructor_.userId;
 import com.group8.pojo.User;
 import com.group8.service.InstructorService;
 import com.group8.service.UserService;
@@ -59,6 +60,7 @@ public class InstructorController {
         int PAGE_MAX = Integer.parseInt(env.getProperty("page.size.instructor"));
         int pageTotal = (int) Math.ceil((double) total / PAGE_MAX);
         model.addAttribute("instructor",instructor);
+        model.addAttribute("selectedUserId", userId); // Nếu cần, truyền userId đã chọn
         model.addAttribute("pageTotal", pageTotal);
         System.out.println("HELO" + pageTotal);
         return "instructor";

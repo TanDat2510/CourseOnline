@@ -27,6 +27,9 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="<c:url value="/invoice" />" class="nav-link">Invoice</a>
         </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="<c:url value="/stats" />" class="nav-link">Stats</a>
+        </li>
        
     </ul>
 

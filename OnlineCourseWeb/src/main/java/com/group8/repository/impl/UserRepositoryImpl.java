@@ -64,4 +64,10 @@ public class UserRepositoryImpl implements UserRepository {
         User u = this.getUserByID(id);
         s.delete(u);
     }
+    
+    @Override
+    public void changePassword(User user) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.update(user);
+    }
 }

@@ -65,18 +65,18 @@
                         <label for="kw">Search by Expertise</label> <!-- Label in English -->
                         <input type="text" name="kw" id="kw" class="form-control" placeholder="Search by expertise..." value="${param.kw}">
                     </div>
-                    
-                    
+
+
                 </div>
                 <div class="row mb-3">
-                    
-                    
+
+
                     <div class="col-md-3">
-                        <label for="userId">Instructor</label> <!-- Label in English -->
+                        <label for="userId">Instructor</label>
                         <select name="userId" id="instructorId" class="form-control">
                             <option value="">All Instructors</option>
                             <c:forEach var="instructor" items="${instructors}">
-                                <option value="${userId}" ${param.userId == instructor.userId ? 'selected' : ''}>
+                                <option value="${instructor.userId.id}" ${param.userId == instructor.userId ? 'selected' : ''}>
                                     ${instructor.fullName}
                                 </option>
                             </c:forEach>

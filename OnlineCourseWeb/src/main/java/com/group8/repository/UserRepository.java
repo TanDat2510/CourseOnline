@@ -18,4 +18,5 @@ public interface UserRepository {
     User addUser(User user);
     User getUserByID(int id);
     void deleteUserInstructor(int id);
+    void changePassword(User user);
 }
