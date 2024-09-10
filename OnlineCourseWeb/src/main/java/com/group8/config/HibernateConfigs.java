@@ -1,4 +1,4 @@
-package com.group8.config;
+    package com.group8.config;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

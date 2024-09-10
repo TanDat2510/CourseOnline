@@ -4,14 +4,16 @@
  */
 package com.group8.repository.impl;
 
+import com.group8.dto.CourseDTO;
 import com.group8.pojo.Course;
-import com.group8.pojo.CourseStatus;
-import com.group8.pojo.CourseType;
+import com.group8.pojo.Enum.CourseStatus;
+import com.group8.pojo.Enum.CourseType;
 import com.group8.repository.CourseRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -75,7 +77,7 @@ public class CourseRepositoryImpl implements CourseRepository {
             }
             if (courseType != null && !courseType.isEmpty()) {
                 CourseType courseTypeEnum = CourseType.valueOf(courseType.toUpperCase());
-                Predicate p6 = b.equal(root.get("courseType"),courseTypeEnum);
+                Predicate p6 = b.equal(root.get("courseType"), courseTypeEnum);
                 predicates.add(p6);
             }
             if (instructorId != null && !instructorId.isEmpty()) {
@@ -123,4 +125,66 @@ public class CourseRepositoryImpl implements CourseRepository {
         s.delete(c);
     }
 
+    @Override
+    public String getOrderInfor(String stringArray) {
+        // Chuyển đổi chuỗi các ID thành danh sách số nguyên
+        List<Integer> courseIds = new ArrayList<>();
+        if (stringArray != null && !stringArray.isEmpty()) {
+            String[] ids = stringArray.split(",");
+            for (String id : ids) {
+                try {
+                    courseIds.add(Integer.parseInt(id.trim()));
+                } catch (NumberFormatException e) {
+                    // Xử lý trường hợp không thể chuyển đổi ID thành số nguyên
+                    e.printStackTrace();
+                    return "";
+                }
+            }
+        }
+
+        // Tạo session và CriteriaBuilder
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder cb = s.getCriteriaBuilder();
+        CriteriaQuery<String> cq = cb.createQuery(String.class);
+        Root<Course> root = cq.from(Course.class);
+
+        // Tạo predicate cho điều kiện tìm kiếm
+        Predicate predicate = root.get("id").in(courseIds);
+        cq.select(root.get("title")).where(predicate);
+
+        // Thực hiện truy vấn
+        List<String> titles = s.createQuery(cq).getResultList();
+
+        // Nối các tiêu đề thành chuỗi ngăn cách bởi ", "
+        return String.join(", ", titles);
+    }
+
+    @Override
+    public List<Course> getCourseDTOByInstructorId(int instructorId) {
+        // Mở session hiện tại
+        Session session = this.factory.getObject().getCurrentSession();
+
+        // Tạo CriteriaBuilder để xây dựng câu truy vấn
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+
+        // Tạo CriteriaQuery cho đối tượng Course
+        CriteriaQuery<Course> query = builder.createQuery(Course.class);
+
+        // Xác định "Root" (bảng Course)
+        Root<Course> root = query.from(Course.class);
+        query.select(root);
+
+        // Tạo điều kiện WHERE để lọc theo instructorId
+        Predicate instructorPredicate = builder.equal(root.get("instructorId"), instructorId);
+
+        // Áp dụng điều kiện vào câu truy vấn
+        query.where(instructorPredicate);
+        
+        // Thực thi truy vấn bằng cách sử dụng TypedQuery
+        TypedQuery<Course> typedQuery = session.createQuery(query);
+        return typedQuery.getResultList();
+    }
+
+
+ 
 }

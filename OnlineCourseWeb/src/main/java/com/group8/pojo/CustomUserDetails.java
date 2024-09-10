@@ -16,10 +16,15 @@ import java.util.Set;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public class CustomUserDetails implements UserDetails {
+
     private final User user;
 
     public CustomUserDetails(User user) {
         this.user = user;
+    }
+
+    public Integer getId() {
+        return user.getId();
     }
 
     public String getFirstName() {
@@ -29,8 +34,8 @@ public class CustomUserDetails implements UserDetails {
     public String getLastName() {
         return user.getLastName();
     }
-    
-    public String getAvatar(){
+
+    public String getAvatar() {
         return user.getAvatar();
     }
 

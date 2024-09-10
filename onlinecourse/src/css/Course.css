@@ -1,0 +1,121 @@
+
+
+/* Style cho card khóa học */
+.course-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.course-card .card-img-top {
+  object-fit: cover;
+  height: 250px; /* Chiều cao cố định cho hình ảnh */
+}
+
+.course-card .card-body {
+  flex: 1;
+  /* Đảm bảo Card.Body mở rộng để chiếm không gian còn lại */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.course-card .card-body .btn {
+  margin-top: auto;
+  /* Đẩy nút xuống cuối Card.Body */
+}
+
+/* Style cho form tìm kiếm */
+.form-control {
+  border-radius: 0.25rem;
+  /* Thay đổi bo góc */
+}
+
+.mt-3 {
+  margin-top: 1rem;
+  /* Khoảng cách trên giữa ô tìm kiếm và khoảng giá */
+}
+
+/* Style cho các cột trong lưới */
+.col {
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+
+/* Style cho banner quảng cáo */
+.banner-card {
+  background-color: #f8f9fa;
+  border: none;
+  margin-bottom: 2rem; /* Khoảng cách dưới banner */
+}
+
+.banner-card .card-img-top {
+  max-height: 500px; /* Tăng chiều cao tối đa của hình ảnh */
+  object-fit: cover;
+}
+
+.banner-card .card-body {
+  text-align: center;
+}
+
+.banner-card .btn-primary {
+  margin-top: 10px;
+  padding: 10px 20px; /* Thay đổi kích thước nút */
+  font-size: 1.2rem; /* Thay đổi kích thước chữ trong nút */
+}
+.category-badge {
+  cursor: pointer;
+  margin: 5px; /* Giảm khoảng cách giữa các badge */
+  font-size: 1.2rem; /* Điều chỉnh kích thước chữ */
+  display: inline-block;
+}
+/* Đặt kích thước cho thẻ Card sử dụng phần trăm */
+.course-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px; /* Khoảng cách giữa các thẻ Card */
+}
+
+/* Đặt chiều cao cho hình ảnh theo tỷ lệ và đảm bảo hình ảnh không bị biến dạng */
+.course-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Đặt chiều cao cho phần mô tả và ẩn phần vượt quá kích thước */
+.course-description {
+  height: 4rem; /* Sử dụng rem để linh hoạt hơn */
+  overflow: hidden;
+}
+.course-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px; /* Khoảng cách giữa các thẻ Card */
+}
+
+.course-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.course-description {
+  height: 4rem; /* Sử dụng rem để linh hoạt hơn */
+  overflow: hidden;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px; /* Khoảng cách giữa các nút */
+}
+
+.icon {
+  margin-left: 8px; /* Khoảng cách giữa văn bản và biểu tượng */
+}
+
+
+

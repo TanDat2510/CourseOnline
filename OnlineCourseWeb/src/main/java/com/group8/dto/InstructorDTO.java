@@ -14,6 +14,6 @@ public class InstructorDTO {
     private Date createdDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updatedDate;
-    private Integer userId;
+    private UserDTO userId;
     
 }

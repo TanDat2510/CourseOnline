@@ -72,7 +72,6 @@ public class Instructor implements Serializable {
     private Date updatedDate;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @OneToOne(optional = false)
-    @JsonIgnore
     private User userId;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instructorId")

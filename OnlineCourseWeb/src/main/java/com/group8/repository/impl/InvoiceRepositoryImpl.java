@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
+ * @author thang
  * @author TAN DAT
  */
 @Repository
@@ -34,6 +35,29 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     private LocalSessionFactoryBean factory;
 
     @Override
+    public void addUpInvoice(Invoice invoice) {
+        Session s = this.factory.getObject().getCurrentSession();
+        if (invoice.getId() != null) {
+            s.update(invoice);
+        } else {
+            s.save(invoice);
+        }
+    }
+
+    @Override
+    public Invoice checkrequestId(String RequestId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder cb = s.getCriteriaBuilder();
+        CriteriaQuery<Invoice> cq = cb.createQuery(Invoice.class);
+        Root<Invoice> invoice = cq.from(Invoice.class);
+
+        // Đếm số lượng Invoice có transactionId tương ứng
+        cq.where(cb.equal(invoice.get("referenceCode"), RequestId));
+
+        Query query = s.createQuery(cq);
+        return (Invoice) query.getSingleResult(); 
+    }
+    
     public List<Invoice> getAllInvoice(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
@@ -74,6 +98,12 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
 
     @Override
     public Invoice getInvoiceById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(Invoice.class, id);
+    }
+
+    @Override
+    public Invoice calculateTotalAmount(int id) {
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(Invoice.class, id);
     }

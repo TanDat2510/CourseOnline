@@ -5,6 +5,7 @@
 package com.group8.controller;
 
 import com.group8.dto.EnrollmentDTO;
+import com.group8.dto.InvoiceStatsDTO;
 import com.group8.pojo.Invoice;
 
 import com.group8.service.InvoiceService;
@@ -61,6 +62,7 @@ public class InvoiceController {
     public String detailsViewInvoice(Model model, @PathVariable("invoiceId") int id) {
         List<EnrollmentDTO> enrollmentDTOs = invoiceService.getInvoiceById(id);
         // Lấy danh sách các đối tượng trong enrollmentDTO có liên quan đến id hóa đơn
+        List<InvoiceStatsDTO> invoiceStatsDTOs = invoiceService.calculateTotalAmount(id);
         if (enrollmentDTOs == null || enrollmentDTOs.isEmpty()) {
             // Xử lý trường hợp không tìm thấy dữ liệu đăng ký
             model.addAttribute("message", "Không tìm thấy đăng ký nào cho hóa đơn này.");
@@ -68,6 +70,8 @@ public class InvoiceController {
         }
 
         model.addAttribute("enrollmentDTOs", enrollmentDTOs);
+        model.addAttribute("invoiceStatsDTOs",invoiceStatsDTOs);
+        
         System.out.println("HelloAA" + this.invoiceService.getInvoiceById(id));
         return "invoice-details";
     }

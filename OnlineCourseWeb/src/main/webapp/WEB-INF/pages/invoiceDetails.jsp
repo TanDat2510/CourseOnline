@@ -38,7 +38,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <h4>
-                                    <i class="fas fa-globe"></i> AdminLTE, Inc.
+                                    <i class="fas fa-globe"></i> CourseOnline, Inc.
                                     <small class="float-right">Date: <fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/></small>
                                 </h4>
                             </div>
@@ -88,9 +88,9 @@
                             <!-- /.col -->
                             <div class="col-sm-4 invoice-col">
                                 <c:forEach var="dto" items="${enrollmentDTOs}">
-                                    <c:if test="${dto.invoiceNumber != currentInvoiceNumber}">
-                                        <strong>Invoice Number: </strong>${dto.invoiceNumber}<br>
-                                        <c:set var="currentInvoiceNumber" value="${dto.invoiceNumber}" />
+                                    <c:if test="${dto.referenceCode != currentInvoiceNumber}">
+                                        <strong>Invoice Number: </strong>${dto.referenceCode}<br>
+                                        <c:set var="currentInvoiceNumber" value="${dto.referenceCode}" />
                                     </c:if>
                                     <c:if test="${dto.payerName != currentPayerName1}">
                                         <strong>PayerName: </strong>${dto.payerName}<br>
@@ -127,6 +127,7 @@
                                                     <td>${dto.payerName}</td>
                                                     <td>${dto.payerEmail}</td>
                                                     <td>${dto.userId.firstName}${dto.userId.lastName}</td>
+                                                    
                                                     <td>${dto.courseId.title}</td>
                                                     <td>${dto.courseId.price}</td>
                                                     <td>${dto.createdDate}</td>
@@ -163,7 +164,7 @@
                                     <c:set var="currentTotalAmount" value="" />
 
                                     <table class="table">
-                                        <c:forEach var="dto" items="${enrollmentDTOs}">
+                                        <c:forEach var="dto" items="${invoiceStatsDTOs}">
 
                                             <c:if test="${dto.totalAmount != currentTotalAmount}">
                                                 <tr>

@@ -6,8 +6,10 @@ package com.group8.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+
 import com.group8.dto.AddUserDTO;
 import com.group8.dto.UserDTO;
+
 import com.group8.pojo.CustomUserDetails;
 import com.group8.pojo.User;
 import com.group8.repository.UserRepository;
@@ -95,30 +97,6 @@ public class UserServiceImpl implements UserService {
         return userDTO;
     }
 
-    @Override
-    public UserDTO getUserDTO(String username) {
-        User u = this.userRepo.getUserByUsername(username);
-        UserDTO userDTO = new UserDTO();
-        modelMapper.map(u, userDTO);
-        return userDTO;
-    }
-
-    @Override
-    public AddUserDTO getUserById(Integer id) {
-        User user = this.userRepo.getUserByID(id);
-        AddUserDTO addUserDTO = new AddUserDTO();
-        addUserDTO.setId(user.getId());
-        addUserDTO.setFirstName(user.getFirstName());
-        addUserDTO.setLastName(user.getLastName());
-        addUserDTO.setEmail(user.getEmail());
-        addUserDTO.setPhone(user.getPhone());
-        addUserDTO.setUsername(user.getUsername());
-        addUserDTO.setPassword(user.getPassword());
-        addUserDTO.setFile(user.getFile());
-
-        return addUserDTO;
-    }
-
     @Override//Thêm User role INSTRUCTOR
     public void addUserInstructor(User user) {
         if (!user.getFile().isEmpty()) {
@@ -138,6 +116,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO getUserDTO(String username) {
+        User u = this.userRepo.getUserByUsername(username);
+        UserDTO userDTO = new UserDTO();
+        modelMapper.map(u, userDTO);
+        return userDTO;
+    }
+
+    @Override
+    public long countUsers(Map<String, String> params) {
+        return this.userRepo.countUsers(params);
+    }
+
+    @Override
+    public AddUserDTO getUserById(Integer id) {
+        User user = this.userRepo.getUserByID(id);
+        AddUserDTO addUserDTO = new AddUserDTO();
+        addUserDTO.setId(user.getId());
+        addUserDTO.setFirstName(user.getFirstName());
+        addUserDTO.setLastName(user.getLastName());
+        addUserDTO.setEmail(user.getEmail());
+        addUserDTO.setPhone(user.getPhone());
+        addUserDTO.setUsername(user.getUsername());
+        addUserDTO.setPassword(user.getPassword());
+        addUserDTO.setFile(user.getFile());
+
+        return addUserDTO;
+    }
+
+    @Override
     public void deleteUserInstuctor(int id) {
         this.userRepo.deleteUserInstructor(id);
     }
@@ -146,6 +153,12 @@ public class UserServiceImpl implements UserService {
     public void changePassword(User user) {
         user.setPassword(this.passEncoder.encode(user.getPassword()));
         this.userRepo.changePassword(user);
+    }
+
+    @Override
+    public User getUserByID(int id) {
+
+        return this.userRepo.getUserByID(id);
     }
 
 }

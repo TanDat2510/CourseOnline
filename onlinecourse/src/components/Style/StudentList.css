@@ -1,0 +1,71 @@
+/* StudentList.css */
+
+.student-list {
+    display: block;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .student-card {
+    display: flex;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  
+  .student-avatar-container {
+    flex-shrink: 0;
+    width: 150px;
+    height: 150px;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .student-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .student-info-container {
+    flex-grow: 1;
+    text-align: left;
+  }
+  
+  .student-quote {
+    font-style: italic;
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+  
+  .student-details {
+    font-size: 14px;
+    color: #000; /* Màu đen thông thường cho các chi tiết khác */
+  }
+  
+  .student-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000; /* Màu đen đậm cho tên */
+  }
+  
+  .student-title, .student-university {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #000; /* Màu đen thông thường */
+  }
+  
+  .progres {
+    font-size: 14px;
+    color: #008000; /* Màu xanh lá cho tiến trình học */
+  }
+  

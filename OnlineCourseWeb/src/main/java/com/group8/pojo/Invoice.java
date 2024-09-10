@@ -41,14 +41,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Invoice.findAll", query = "SELECT i FROM Invoice i"),
     @NamedQuery(name = "Invoice.findById", query = "SELECT i FROM Invoice i WHERE i.id = :id"),
-    @NamedQuery(name = "Invoice.findByInvoiceNumber", query = "SELECT i FROM Invoice i WHERE i.invoiceNumber = :invoiceNumber"),
+    @NamedQuery(name = "Invoice.findByCreatedDate", query = "SELECT i FROM Invoice i WHERE i.createdDate = :createdDate"),
+    @NamedQuery(name = "Invoice.findByUpdatedDate", query = "SELECT i FROM Invoice i WHERE i.updatedDate = :updatedDate"),
+    @NamedQuery(name = "Invoice.findByStatus", query = "SELECT i FROM Invoice i WHERE i.status = :status"),
+    @NamedQuery(name = "Invoice.findByTransactionId", query = "SELECT i FROM Invoice i WHERE i.transactionId = :transactionId"),
+    @NamedQuery(name = "Invoice.findByReferenceCode", query = "SELECT i FROM Invoice i WHERE i.referenceCode = :referenceCode"),
     @NamedQuery(name = "Invoice.findByPayerName", query = "SELECT i FROM Invoice i WHERE i.payerName = :payerName"),
     @NamedQuery(name = "Invoice.findByPayerPhone", query = "SELECT i FROM Invoice i WHERE i.payerPhone = :payerPhone"),
-    @NamedQuery(name = "Invoice.findByPayerEmail", query = "SELECT i FROM Invoice i WHERE i.payerEmail = :payerEmail"),
-    @NamedQuery(name = "Invoice.findByTotalAmount", query = "SELECT i FROM Invoice i WHERE i.totalAmount = :totalAmount"),
-    @NamedQuery(name = "Invoice.findByStatus", query = "SELECT i FROM Invoice i WHERE i.status = :status"),
-    @NamedQuery(name = "Invoice.findByCreatedDate", query = "SELECT i FROM Invoice i WHERE i.createdDate = :createdDate"),
-    @NamedQuery(name = "Invoice.findByUpdatedDate", query = "SELECT i FROM Invoice i WHERE i.updatedDate = :updatedDate")})
+    @NamedQuery(name = "Invoice.findByPayerEmail", query = "SELECT i FROM Invoice i WHERE i.payerEmail = :payerEmail")})
 public class Invoice implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,9 +59,22 @@ public class Invoice implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "invoice_number")
-    private String invoiceNumber;
+    @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "updated_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedDate;
+    @Column(name = "status")
+    private Boolean status;
+    @Size(max = 100)
+    @Column(name = "transaction_id")
+    private String transactionId;
+    @Size(max = 100)
+    @Column(name = "reference_code")
+    private String referenceCode;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -77,28 +90,21 @@ public class Invoice implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "payer_email")
     private String payerEmail;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "total_amount")
-    private long totalAmount;
-    @Column(name = "status")
-    private Boolean status;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "created_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "updated_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedDate;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "invoiceId")
+    @Column(name = "total")
+    private double total;
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "invoiceId")
     private Set<Enrollment> enrollmentSet;
     
     
     
 
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
     public Invoice() {
     }
 
@@ -106,15 +112,13 @@ public class Invoice implements Serializable {
         this.id = id;
     }
 
-    public Invoice(Integer id, String invoiceNumber, String payerName, String payerPhone, String payerEmail, long totalAmount, Date createdDate, Date updatedDate) {
+    public Invoice(Integer id, Date createdDate, Date updatedDate, String payerName, String payerPhone, String payerEmail) {
         this.id = id;
-        this.invoiceNumber = invoiceNumber;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
         this.payerName = payerName;
         this.payerPhone = payerPhone;
         this.payerEmail = payerEmail;
-        this.totalAmount = totalAmount;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
     }
 
     public Integer getId() {
@@ -125,12 +129,44 @@ public class Invoice implements Serializable {
         this.id = id;
     }
 
-    public String getInvoiceNumber() {
-        return invoiceNumber;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setInvoiceNumber(String invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getReferenceCode() {
+        return referenceCode;
+    }
+
+    public void setReferenceCode(String referenceCode) {
+        this.referenceCode = referenceCode;
     }
 
     public String getPayerName() {
@@ -155,38 +191,6 @@ public class Invoice implements Serializable {
 
     public void setPayerEmail(String payerEmail) {
         this.payerEmail = payerEmail;
-    }
-
-    public long getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(long totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
     }
 
     @JsonIgnore

@@ -40,6 +40,7 @@ public class ApiUserController {
 
     @Autowired
     private JwtService jwtService;
+
     @Autowired
     private UserService userService;
 
@@ -54,17 +55,16 @@ public class ApiUserController {
     public ResponseEntity<String> login(@RequestBody User user) {
         if (this.userService.authUser(user.getUsername(), user.getPassword()) == true) {
             String token = this.jwtService.generateTokenLogin(user.getUsername());
+            
 
             return new ResponseEntity<>(token, HttpStatus.OK);
         }
-
         return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping(path = "/users",
-            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE})
-    @CrossOrigin
+    @PostMapping(path = "/users", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
     public ResponseEntity<UserDTO> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
         UserDTO userDTO = this.userService.addUser(params, avatar);
         return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
@@ -73,6 +73,7 @@ public class ApiUserController {
     @GetMapping(path = "/current-user", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<UserDTO> details(Principal user) {
+        
         // Lấy đối tượng User từ service
         UserDTO userDTO = this.userService.getUserDTO(user.getName());
         // Trả về DTO trong ResponseEntity
@@ -88,11 +89,12 @@ public class ApiUserController {
     }
 
     @PostMapping("/change-password/{username}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> changePasswordAdmin(
             @PathVariable("username") String username,
             @RequestBody Map<String, String> passwordData) {
 
-        String oldPassword = passwordData.get("oldPassword");
+//        String oldPassword = passwordData.get("oldPassword");
         String newPassword = passwordData.get("newPassword");
         String confirmPassword = passwordData.get("confirmPassword");
 
@@ -101,9 +103,9 @@ public class ApiUserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy người dùng!");
         }
 
-        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mật khẩu cũ không đúng!");
-        }
+//        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mật khẩu cũ không đúng!");
+//        }
 
         if (!newPassword.equals(confirmPassword)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mật khẩu mới và xác nhận mật khẩu không khớp!");

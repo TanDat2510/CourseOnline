@@ -4,10 +4,10 @@
  */
 package com.group8.controller;
 
-import com.group8.pojo.CourseStatus;
-import com.group8.pojo.CourseType;
+import com.group8.pojo.Enum.CourseStatus;
+import com.group8.pojo.Enum.CourseType;
 import com.group8.pojo.Enrollment;
-import com.group8.pojo.EnrollmentStatus;
+import com.group8.pojo.Enum.EnrollmentStatus;
 import com.group8.service.EnrollmentService;
 import java.util.List;
 import java.util.Map;

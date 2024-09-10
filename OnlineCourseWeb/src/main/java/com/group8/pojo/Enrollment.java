@@ -4,6 +4,7 @@
  */
 package com.group8.pojo;
 
+import com.group8.pojo.Enum.EnrollmentStatus;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;

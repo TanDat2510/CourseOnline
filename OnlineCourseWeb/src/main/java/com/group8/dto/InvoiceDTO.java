@@ -17,6 +17,20 @@ import lombok.Data;
 public class InvoiceDTO {
 
     /**
+     * @return the referenceCode
+     */
+    public String getReferenceCode() {
+        return referenceCode;
+    }
+
+    /**
+     * @param referenceCode the referenceCode to set
+     */
+    public void setReferenceCode(String referenceCode) {
+        this.referenceCode = referenceCode;
+    }
+
+    /**
      * @return the id
      */
     public Integer getId() {
@@ -30,20 +44,7 @@ public class InvoiceDTO {
         this.id = id;
     }
 
-    /**
-     * @return the invoiceNumber
-     */
-    public String getInvoiceNumber() {
-        return invoiceNumber;
-    }
-
-    /**
-     * @param invoiceNumber the invoiceNumber to set
-     */
-    public void setInvoiceNumber(String invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
-    }
-
+ 
     /**
      * @return the payerName
      */
@@ -170,7 +171,7 @@ public class InvoiceDTO {
         this.courseId = courseId;
     }
     private Integer id;
-    private String invoiceNumber;
+    private String referenceCode;
     private String payerName;
     private String payerPhone;
     private String payerEmail;

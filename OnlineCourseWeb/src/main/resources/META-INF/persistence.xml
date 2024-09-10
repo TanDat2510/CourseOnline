@@ -2,12 +2,17 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="com.group8_OnlineCourseWeb_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.group8.pojo.User</class>
-    <class>com.group8.pojo.Category</class>
-    <class>com.group8.pojo.Course</class>
-    <class>com.group8.pojo.Instructor</class>
-    <class>com.group8.pojo.Invoice</class>
-    <class>com.group8.pojo.Enrollment</class>
+    <class>com.group8.websocket.pojo.Category</class>
+    <class>com.group8.websocket.pojo.Content</class>
+    <class>com.group8.websocket.pojo.Lecture</class>
+    <class>com.group8.websocket.pojo.Instructor</class>
+    <class>com.group8.websocket.pojo.Course</class>
+    <class>com.group8.websocket.pojo.Enrollment</class>
+    <class>com.group8.websocket.pojo.Video</class>
+    <class>com.group8.websocket.pojo.Information</class>
+    <class>com.group8.websocket.pojo.Process</class>
+    <class>com.group8.websocket.pojo.User</class>
+    <class>com.group8.websocket.pojo.Invoice</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/saledb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

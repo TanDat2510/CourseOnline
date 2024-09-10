@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="baseUrl" value="?" />
+<c:set var="baseUrl" value="?fromCreatedDate=${param.fromCreatedDate}&toCreatedDate=${param.toCreatedDate}&fromUpdatedDate=${param.fromUpdatedDate}&toUpdatedDate=${param.toUpdatedDate}&kw=${param.kw}&status=${param.status}" />
 
 <div class="content-wrapper" style="overflow-y: auto;">
     <!-- Content Header (Page header) -->
@@ -40,32 +40,32 @@
                 <div class="row mb-3">
                     <div class="col-md-3">
                         <label for="fromCreatedDate">From Enrollment Date</label>
-                        <input type="date" id="fromCreatedDate" name="fromCreatedDate" class="form-control" placeholder="From Enrollment Date" value="${params.fromCreatedDate}">
+                        <input type="date" id="fromCreatedDate" name="fromCreatedDate" class="form-control" placeholder="From Enrollment Date" value="${para.fromCreatedDate}">
                     </div>
                     <div class="col-md-3">
                         <label for="toCreatedDate">To Enrollment Date</label>
-                        <input type="date" id="toCreatedDate" name="toCreatedDate" class="form-control" placeholder="To Enrollment Date" value="${params.toCreatedDate}">
+                        <input type="date" id="toCreatedDate" name="toCreatedDate" class="form-control" placeholder="To Enrollment Date" value="${param.toCreatedDate}">
                     </div>
                     <div class="col-md-3">
                         <label for="fromUpdatedDate">From Updated Date</label>
-                        <input type="date" id="fromUpdatedDate" name="fromUpdatedDate" class="form-control" placeholder="From Updated Date" value="${params.fromUpdatedDate}">
+                        <input type="date" id="fromUpdatedDate" name="fromUpdatedDate" class="form-control" placeholder="From Updated Date" value="${param.fromUpdatedDate}">
                     </div>
                     <div class="col-md-3">
                         <label for="toUpdatedDate">To Updated Date</label>
-                        <input type="date" id="toUpdatedDate" name="toUpdatedDate" class="form-control" placeholder="To Updated Date" value="${params.toUpdatedDate}">
+                        <input type="date" id="toUpdatedDate" name="toUpdatedDate" class="form-control" placeholder="To Updated Date" value="${param.toUpdatedDate}">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="kw">Search by course title</label>
-                        <input type="text" id="kw" name="kw" class="form-control" placeholder="Search by course title..." value="${params.kw}">
+                        <input type="text" id="kw" name="kw" class="form-control" placeholder="Search by course title..." value="${param.kw}">
                     </div>
                     <div class="col-md-4">
                         <label for="status">Status</label>
                         <select id="status" name="status" class="form-control">
                             <option value="">All Statuses</option>
                             <c:forEach var="status" items="${enrollmentStatusList}">
-                                <option value="${status}" ${params.status == status ? 'selected' : ''}>
+                                <option value="${status}" ${param.status == status ? 'selected' : ''}>
                                     ${status}
                                 </option>
                             </c:forEach>
@@ -119,7 +119,7 @@
                                     <fmt:formatDate value="${enrollment.createdDate}" pattern="dd-MM-yyyy hh:mm:ss" />
                                 </td>
                                 <td>
-                                    <fmt:formatDate value="${enrollment.updatedDate}" pattern="dd-MM-yyyy hh:mm:ss" />
+                                    ${enrollment.progress}
                                 </td>
                             </tr>
                         </c:forEach>
@@ -130,19 +130,19 @@
         </div>
         <div class="card-footer clearfix">
             <ul class="pagination pagination-sm m-0 float-right">
-                <c:if test="${params.page > 1}">
+                <c:if test="${param.page > 1}">
                     <li class="page-item">
-                        <a class="page-link" href="${baseUrl}&page=${params.page - 1}">&laquo;</a>
+                        <a class="page-link" href="${baseUrl}&page=${param.page - 1}">&laquo;</a>
                     </li>
                 </c:if>
                 <c:forEach var="i" begin="1" end="${pageTotal}">
-                    <li class="page-item ${i == params.page ? 'active' : ''}">
+                    <li class="page-item ${i == param.page ? 'active' : ''}">
                         <a class="page-link" href="${baseUrl}&page=${i}">${i}</a>
                     </li>
                 </c:forEach>
-                <c:if test="${params.page < pageTotal}">
+                <c:if test="${param.page < pageTotal}">
                     <li class="page-item">
-                        <a class="page-link" href="${baseUrl}&page=${params.page + 1}">&raquo;</a>
+                        <a class="page-link" href="${baseUrl}&page=${param.page + 1}">&raquo;</a>
                     </li>
                 </c:if>
             </ul>

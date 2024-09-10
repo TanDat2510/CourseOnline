@@ -45,7 +45,6 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-
     <div class="card container">
         <div class="card-header border-transparent">
             <h3 class="card-title">Instructor</h3>

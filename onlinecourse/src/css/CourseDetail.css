@@ -1,0 +1,31 @@
+/* CourseDetail.css */
+
+/* Tên khóa học lớn ở đầu trang */
+.course-title-large {
+  font-size: 2.5rem; /* Kích thước chữ lớn cho tên khóa học */
+  font-weight: bold; /* Chữ đậm */
+  text-align: center; /* Căn giữa tên khóa học */}
+
+/* Tiêu đề khóa học và giảng viên */
+.course-title {
+  font-size: 1.5rem; /* Kích thước chữ tiêu đề khóa học */
+  font-weight: bold; /* Chữ đậm */
+  text-transform: uppercase; /* Chữ in hoa */
+}
+
+.instructor-title {
+  font-size: 1.5rem; /* Kích thước chữ tiêu đề giảng viên */
+  font-weight: bold; /* Chữ đậm */
+  text-transform: uppercase; /* Chữ in hoa */
+}
+
+/* Các nhãn trong nội dung */
+.card-text strong {
+  text-transform: capitalize; /* Chữ in hoa cho các nhãn */
+  font-size: 1rem; /* Kích thước chữ nhãn */
+}
+
+.card-text {
+  font-size: 1rem; /* Kích thước chữ nội dung */
+}
+

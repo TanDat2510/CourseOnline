@@ -52,9 +52,6 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByUpdatedDate", query = "SELECT u FROM User u WHERE u.updatedDate = :updatedDate")})
 public class User implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Set<Enrollment> enrollmentSet;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -113,15 +110,19 @@ public class User implements Serializable {
     @Column(name = "updated_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Set<Process> processSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Set<Enrollment> enrollmentSet;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "userId")
     private Instructor instructor;
     @Transient
     private MultipartFile file;
-    
+
     public MultipartFile getFile() {
         return file;
     }
-    
+
     public void setFile(MultipartFile file) {
         this.file = file;
     }
@@ -243,7 +244,14 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    @JsonIgnore
+    public Set<Process> getProcessSet() {
+        return processSet;
+    }
+
+    public void setProcessSet(Set<Process> processSet) {
+        this.processSet = processSet;
+    }
+
     public Instructor getInstructor() {
         return instructor;
     }

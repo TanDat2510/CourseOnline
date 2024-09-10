@@ -89,6 +89,7 @@ public class InstructorRepositoryImpl implements InstructorRepository {
     @Override
     public Instructor getInstructorById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
+      
         return s.get(Instructor.class, id);
     }
 

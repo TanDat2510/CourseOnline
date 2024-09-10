@@ -1,0 +1,36 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.success-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa; /* Optional: Set a background color */
+}
+
+.success-card {
+    border: 2px solid #28a745;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    background-color: #ffffff;
+}
+
+.success-card h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.success-card p {
+    font-size: 1.25rem;
+    color: #6c757d;
+}
+
+.success-card .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 0.75rem 1.5rem;
+}

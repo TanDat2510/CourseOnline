@@ -49,7 +49,7 @@
             <form method="GET" action="<c:url value='/invoice'/>">
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="kw">Search by invoice number </label>
+                        <label for="kw">Search by Payer Name </label>
                         <input type="text" name="kw" id="kw" class="form-control" placeholder="Search by expertise..." value="${param.kw}">
                     </div>
 
@@ -82,21 +82,19 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Invoice Number</th>
+                            <th>ReferenceCode</th>
                             <th>Payer Name</th>
                             <th>Payer Email</th>
-                            <th>Total Amount</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="invoice" items="${invoice}" varStatus="index">
-                            <tr id="${invoice.id}">
-                                <td>${index.index + 1}</td>
-                                <td>${invoice.invoiceNumber}</td>
+                        <c:forEach var="invoice" items="${invoice}" >
+                            <tr>
+                                <td>${invoice.id}</td>
+                                <td>${invoice.referenceCode}</td>
                                 <td>${invoice.payerName}</td>
                                 <td>${invoice.payerEmail}</td>
-                                <td>${invoice.totalAmount}VND</td>
                                 <td>
                                     <c:choose>
                                         <c:when test="${invoice.status == false}">

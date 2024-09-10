@@ -4,8 +4,6 @@
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,12 +23,19 @@
         <link rel="stylesheet" href="<c:url value='/plugins/daterangepicker/daterangepicker.css' />">
         <link rel="stylesheet" href="<c:url value='/plugins/summernote/summernote-bs4.min.css' />">
         <link rel="stylesheet" href="<c:url value='/plugins/select2/css/select2.min.css'/>">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1"></script>
+        <script src="https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+
+
+
 
     </head>
     <body class="hold-transition sidebar-mini layout-fixed" data-panel-auto-height-mode="height">  
         <div class="wrapper">    
             <tiles:insertAttribute name="header" />
-
             <tiles:insertAttribute name="content" />
             <tiles:insertAttribute name="footer" />
 
@@ -75,6 +80,8 @@
         <script src="<c:url value='/dist/js/demo.js' />"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="<c:url value='/dist/js/pages/dashboard.js' />"></script>
+
+        <script src="<c:url value='/js/custom-scripts.js' />"></script>
         <!-- function to logout when admin don't use -->
         <script>
 
@@ -111,7 +118,6 @@
 // Bắt đầu kiểm tra thời gian không hoạt động sau 1 phút
             setTimeout(checkInactivity, 2 * 60 * 1000);
         </script>
-        <!-- function to delete course -->
         <script>
             function deleteCourse(endpoint, courseId) {
                 var username = '<sec:authentication property="principal.username"/>';
@@ -143,6 +149,7 @@
                                             if (d) {
                                                 d.style.display = "none"; // Ẩn phần tử
                                                 alert("Xóa thành công !!");
+
                                             } else {
                                                 alert("Không tìm thấy khóa học để xóa!");
                                             }
@@ -212,7 +219,57 @@
             }
         </script>
 
+        <script>
+            function deleteContent(endpoint, elementId) {
+                var username = '<sec:authentication property="principal.username"/>';
+                var password = prompt("Vui lòng nhập mật khẩu để xóa nội dung:");
+                if (password === null) {
+                    alert("Xóa nội dung không hợp lệ.");
+                    return;
+                }
 
+                // Gọi API để xác thực và nhận token
+                fetch('/OnlineCourseWeb/api/login/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({username: username, password: password})
+                }).then(res => res.text())
+                        .then(token => {
+                            if (token !== null) {
+                                if (confirm("Bạn chắc chắn xóa không?") === true) {
+                                    fetch(endpoint, {
+                                        method: "DELETE",
+                                        headers: {
+                                            'Authorization': token
+                                        }
+                                    }).then(res => {
+                                        if (res.status === 204) {
+                                            let element = document.getElementById(elementId);
+                                            if (element) {
+                                                element.style.display = "none"; // Ẩn phần tử
+                                                alert("Xóa nội dung thành công!");
+                                            } else {
+                                                alert("Không tìm thấy nội dung để xóa!");
+                                            }
+                                        } else {
+                                            alert("Xóa nội dung không thành công!");
+                                        }
+                                    }).catch(error => {
+                                        console.error('Error:', error);
+                                        alert("Đã xảy ra lỗi trong quá trình xóa nội dung!");
+                                    });
+                                }
+                            } else {
+                                alert("Tên đăng nhập hoặc mật khẩu không chính xác.");
+                            }
+                        }).catch(error => {
+                    console.error('Error:', error);
+                    alert("Đã xảy ra lỗi trong quá trình xác thực!");
+                });
+            }
+        </script>
 
     </body>
 </html>

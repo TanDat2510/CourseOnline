@@ -13,5 +13,12 @@ import java.util.Map;
  * @author thang
  */
 public interface EnrollmentRepository {
-    List<Enrollment> getEnrollments(Map<String,String> params);
+
+    List<Enrollment> getEnrollments(Map<String, String> params);
+    
+    boolean checkEnrollment(int courseId, int userId);
+
+    void addOrUpEnrollment(Enrollment enrollment);
+    
+    Enrollment getEnrollmentByCourseIdAndUserId(int courseId, int userId);
 }

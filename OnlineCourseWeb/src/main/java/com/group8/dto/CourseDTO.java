@@ -2,8 +2,8 @@ package com.group8.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.group8.pojo.CourseStatus;
-import com.group8.pojo.CourseType;
+import com.group8.pojo.Enum.CourseStatus;
+import com.group8.pojo.Enum.CourseType;
 import java.util.Date;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,4 +26,8 @@ public class CourseDTO {
     private InstructorDTO instructorId;
     private String img;
     private MultipartFile file;
+    // todo: check user_id and course_id exits ?
+    private boolean isRegister;
+
+    
 }

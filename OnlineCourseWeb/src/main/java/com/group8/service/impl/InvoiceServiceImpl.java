@@ -5,6 +5,7 @@
 package com.group8.service.impl;
 
 import com.group8.dto.EnrollmentDTO;
+import com.group8.dto.InvoiceStatsDTO;
 import com.group8.pojo.Enrollment;
 
 import com.group8.pojo.Invoice;
@@ -46,10 +47,9 @@ public class InvoiceServiceImpl implements InvoiceService {
         for (Enrollment enrollment : enrollments) {
             EnrollmentDTO enrollmentDTO = new EnrollmentDTO();
             enrollmentDTO.setId(enrollment.getId());
-            enrollmentDTO.setInvoiceNumber(invoice.getInvoiceNumber());
+            enrollmentDTO.setReferenceCode(invoice.getReferenceCode());
             enrollmentDTO.setPayerName(invoice.getPayerName());
             enrollmentDTO.setPayerEmail(invoice.getPayerEmail());
-            enrollmentDTO.setTotalAmount(invoice.getTotalAmount());
             enrollmentDTO.setUserId(enrollment.getUserId());
             enrollmentDTO.setFirstName(enrollment.getUserId().getFirstName());
             enrollmentDTO.setPayerPhone(invoice.getPayerPhone());
@@ -65,5 +65,42 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         return enrollmentDTOs;
     }
+
+    @Override
+    public Invoice checkrequestId(String RequestId) {
+        return this.invoiceRepo.checkrequestId(RequestId);
+    }
+
+    @Override
+    public void addUpInvoice(Invoice invoice) {
+        this.invoiceRepo.addUpInvoice(invoice);
+    }
+
+    @Override
+    public List<InvoiceStatsDTO> calculateTotalAmount(int id) {
+        Invoice invoice = this.invoiceRepo.calculateTotalAmount(id);
+
+        // Chuyển đổi PersistentSet thành List
+        List<Enrollment> enrollments = new ArrayList<>(invoice.getEnrollmentSet());
+
+        List<InvoiceStatsDTO> invoiceStatsDTOs = new ArrayList<>();
+        
+
+        double totalAmount = 0;
+        for (Enrollment enrollment : enrollments) {
+            
+            totalAmount += enrollment.getCourseId().getPrice();
+            InvoiceStatsDTO invoiceStatsDTO = new InvoiceStatsDTO();
+            invoiceStatsDTO.setId(enrollment.getId());
+            invoiceStatsDTO.setPrice(enrollment.getCourseId().getPrice());
+            invoiceStatsDTOs.add(invoiceStatsDTO);
+        }
+        
+        for (InvoiceStatsDTO invoiceStatsDTO : invoiceStatsDTOs) {
+        invoiceStatsDTO.setTotalAmount(totalAmount);
+    }
+        return invoiceStatsDTOs;
+    }
+
 
 }

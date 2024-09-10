@@ -1,0 +1,29 @@
+/* Tăng kích thước và thay đổi màu nền của ToastContainer */
+.custom-toast .toast {
+    color: white;
+    /* Đổi màu chữ */
+    font-size: 1rem;
+    /* Tăng kích thước chữ */
+    padding: 0.5rem;
+    /* Tăng kích thước padding */
+    border-radius: 10px;
+    /* Làm tròn các góc */
+}
+
+/* Đảm bảo ToastContainer luôn ở trên cùng */
+.custom-toast {
+    z-index: 1050;
+}
+
+/* Thay đổi màu nền của toast */
+.bg-danger {
+    background-color: #dc3545 !important;
+    /* Đỏ */
+    color: white;
+}
+
+.bg-success {
+    background-color: #28a745 !important;
+    /* Xanh lá cây */
+    color: white;
+}
