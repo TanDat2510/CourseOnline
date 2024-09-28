@@ -1,63 +1,86 @@
-Định dạng cho danh sách khóa học
-.course-list {
+/* InstructorDashboard.css */
+
+body {
+    background-color: #f8f9fa;  /* Light grey background for a soft look */
+    font-family: 'Arial', sans-serif;  /* Clean, modern font */
+    margin: 0;
     padding: 20px;
 }
 
-/* Grid để sắp xếp các thẻ khóa học */
-.course-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+/* Spinner styles */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Center the spinner vertically */
 }
 
-/* Định dạng cho thẻ khóa học */
+/* Course list container */
+.course-list {
+    max-width: 1200px;
+    margin: 0 auto;  /* Center the content */
+    padding: 20px;
+}
+
+/* Course grid layout */
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));  /* Responsive grid */
+    gap: 20px;  /* Space between cards */
+}
+
+/* Course card styles */
 .course-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.2s ease;
+    background-color: #ffffff;  /* White background for cards */
+    border-radius: 12px;  /* More rounded corners for softness */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);  /* Softer shadow */
+    overflow: hidden;  /* Prevent overflow */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;  /* Smooth scaling and shadow on hover */
 }
 
 .course-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px);  /* Lift effect on hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);  /* Darker shadow on hover */
 }
 
-/* Định dạng cho hình ảnh khóa học */
+/* Course image styles */
 .course-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+    width: 100%;  /* Full width */
+    height: 160px;  /* Fixed height */
+    object-fit: cover;  /* Maintain aspect ratio */
+    border-top-left-radius: 12px;  /* Rounded corners for the image */
+    border-top-right-radius: 12px;  /* Rounded corners for the image */
 }
 
-/* Nội dung thẻ khóa học */
+/* Course content styles */
 .course-content {
-    padding: 15px;
+    padding: 20px;  /* Inner padding for content */
+    text-align: center;  /* Center text */
 }
 
 .course-content h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+    font-size: 1.6em;  /* Slightly larger title */
+    color: #4a4a4a;  /* Dark grey color for title */
+    margin: 10px 0;  /* Margin for spacing */
 }
 
 .course-content p {
-    font-size: 1em;
-    color: #555;
-    margin-bottom: 10px;
+    color: #7a7a7a;  /* Softer color for text */
+    margin: 5px 0;  /* Small margin */
 }
 
-/* Định dạng cho nút "Xem thêm" */
+/* Button styles */
 .btn-view {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 1em;
+    background-color: #6c63ff;  /* Soft purple for a modern look */
+    color: white;  /* White text */
+    border: none;  /* Remove border */
+    border-radius: 25px;  /* Rounded button */
+    padding: 10px 20px;  /* Padding for button */
+    cursor: pointer;  /* Pointer cursor on hover */
+    transition: background-color 0.3s ease;  /* Smooth background change */
+    font-weight: bold;  /* Make text bold */
 }
 
 .btn-view:hover {
-    background-color: #0056b3;
+    background-color: #5a52d9;  /* Slightly darker purple on hover */
 }

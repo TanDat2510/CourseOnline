@@ -1,7 +1,7 @@
 import axios from "axios"
 import cookie from "react-cookies"
 
-const BASE_URL = 'http://localhost:8080/OnlineCourseWeb'
+const BASE_URL = 'http://localhost:8082/OnlineCourseWeb'
 
 export const endpoints = {
     'categories': 'api/categories',
