@@ -4,7 +4,7 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: url('./components/resource/img/backgroundWeb1.jpg');
+  background: url('./components/resource/img/background-white-banner.jpg');
   -moz-osx-font-smoothing: grayscale;
 }
 

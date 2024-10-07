@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  tomcat:
+    image: onlinecourse:1.0.0  # Hình ảnh Docker của bạn
+    container_name: onlinecourse-docker-container  # Tên container
+    ports:
+      - "8081:8082"  # Mở cổng 8081 trên máy host để truy cập cổng 8082 trong container
+    volumes:
+      - ./target/OnlineCourseWeb.war:/usr/local/tomcat/webapps/ROOT.war  # Sao chép file .war vào Tomcat
+    networks:
+      - onlinecourse-network  # Kết nối dịch vụ với mạng đã định nghĩa
+
+networks:
+  onlinecourse-network:  # Định nghĩa mạng với tên 'onlinecourse-network'
+    external: true  # Chỉ định rằng đây là một mạng ngoại bộ

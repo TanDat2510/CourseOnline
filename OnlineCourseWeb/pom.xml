@@ -211,6 +211,7 @@
                 </executions>
             </plugin>
         </plugins>
+        <finalName>OnlineCourseWeb</finalName>
     </build>
 
 </project>

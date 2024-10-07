@@ -41,8 +41,7 @@ const Register = () => {
         try {
             const res = await APIs.post(endpoints['register'], form, {
                 headers: {
-                    // Không cần chỉ định Content-Type cho FormData,
-                    // Axios sẽ tự động thêm đúng loại
+                    'Content-Type': "multipart/form-data"
                 }
             });
 

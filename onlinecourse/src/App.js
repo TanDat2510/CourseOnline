@@ -39,7 +39,7 @@ const App = () => {
             <Header />
             <Container>
 
-              <Routes>
+              <Routes>                                       
                 <Route path='/' element={<Course />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />

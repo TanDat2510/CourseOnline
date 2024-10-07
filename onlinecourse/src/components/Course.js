@@ -8,8 +8,9 @@ import { FaEye, FaShoppingCart, FaSignInAlt } from 'react-icons/fa';
 import '../css/Course.css';
 import '../css/Spinner.css';
 import '../css/ToastContainer.css';
+import myImg from '../components/resource/img/BackgroundWeb.jpg'
 
-const DEFAULT_IMAGE = "https://res.cloudinary.com/dh1irfap0/image/upload/v1725264150/NANG-CAP-BAN-THAN_pdmrgk.png";
+const DEFAULT_IMAGE = "https://res.cloudinary.com/djrv1hnrc/image/upload/v1726311831/siobzpxrmha1mqpihz5k.jpg";
 
 const Course = () => {
   const [courses, setCourses] = useState([]);
@@ -70,7 +71,19 @@ const Course = () => {
 
   return (
     <>
+      {/* Banner */}
+      <Card className="banner-card text-white">
+        <Card.Img src={myImg} alt="Banner Image" className="banner-image" />
+        <Card.ImgOverlay className="d-flex flex-column justify-content-center align-items-center">
+          <h1 className="banner-title">Chào Mừng Bạn Đến Với Khóa Học</h1>
+          <p className="banner-text">Khám phá những khóa học hấp dẫn và phát triển kỹ năng của bạn ngay hôm nay!</p>
+          <Button variant="primary" size="lg">Tìm Hiểu Ngay</Button>
+        </Card.ImgOverlay>
+      </Card>
+
       <Row className="p-5">
+      <h1>Tuyển tập khóa học rộng lớn</h1>
+      <h5>Lựa chọn trong số hơn 250000 khóa học video online với nhiều nội dung bổ sung mới được xuất bản hàng tháng</h5>
         {courses.map(c => {
           const imgSrc = c.img || DEFAULT_IMAGE;
           return (
