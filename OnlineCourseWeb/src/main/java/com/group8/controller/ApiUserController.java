@@ -65,6 +65,7 @@ public class ApiUserController {
     @PostMapping(path = "/users", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
+    @CrossOrigin
     public ResponseEntity<UserDTO> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
         UserDTO userDTO = this.userService.addUser(params, avatar);
         return new ResponseEntity<>(userDTO, HttpStatus.CREATED);

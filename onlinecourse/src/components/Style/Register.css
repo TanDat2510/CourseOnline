@@ -1,0 +1,128 @@
+/* Register.css */
+
+.register-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px;
+}
+
+.register-form {
+    background-color: rgba(255, 255, 255, 0.9); /* Nền trắng với độ trong suốt */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); /* Đổ bóng tinh tế */
+    width: 100%;
+    max-width: 600px;
+}
+
+.register-form h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000000; /* Màu chữ đen */
+    text-align: center;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.register-form .form-control {
+    background-color: #ffffff; /* Màu nền trắng cho input */
+    border: 1px solid #cccccc; /* Viền xám nhạt */
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    color: #000000; /* Màu chữ đen */
+    margin-bottom: 1.5rem;
+    transition: border-color 0.3s ease;
+}
+
+.register-form .form-control:focus {
+    border-color: #d6a273; /* Viền khi focus */
+    box-shadow: none;
+}
+
+.register-form .form-label {
+    font-size: 1.2rem;
+    color: #000000; /* Màu chữ đen */
+    margin-bottom: 0.5rem;
+}
+
+.register-form .btn-block {
+    background-color: #d6a273; /* Màu cam nhẹ */
+    color: white;
+    font-size: 1.3rem;
+    padding: 12px 0;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.register-form .btn-block:hover {
+    background-color: #b37b56;
+    cursor: pointer;
+}
+
+.register-form .alert {
+    color: #000000; /* Màu chữ đen */
+    background-color: #f8d9c0; /* Màu nhạt cho alert */
+    border: 1px solid #dec1a5;
+    border-radius: 10px;
+}
+
+.register-form .text-center {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #000000; /* Màu chữ đen */
+}
+
+.register-form .text-black-important {
+    color: #000000;/* Màu chữ đen cho chữ "Bạn đã có tài khoản?" */
+}
+
+.register-form .text-info {
+    color: #d6a273; /* Màu cam cho link */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-form .text-info:hover {
+    color: #b37b56;
+    text-decoration: underline;
+}
+
+.register-form .form-control::placeholder {
+    color: #cccccc; /* Màu xám nhạt cho placeholder */
+}
+
+.register-form .btn-block {
+    background-color: #007bff; /* Màu xanh */
+    color: white;
+    font-size: 1.3rem;
+    padding: 12px 0;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.register-form .btn-block:hover {
+    background-color: #0056b3; /* Màu xanh đậm hơn khi hover */
+    cursor: pointer;
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.spinner-lg {
+    width: 5rem;
+    height: 5rem;
+    color: #d6a273; /* Màu cam cho spinner */
+}

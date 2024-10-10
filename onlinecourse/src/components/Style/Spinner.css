@@ -1,0 +1,12 @@
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Chiều cao 100% của viewport để đảm bảo Spinner ở giữa màn hình */
+  }
+  
+  .spinner-lg {
+    width: 5rem;  /* Tăng kích thước của Spinner */
+    height: 5rem;
+    border-width: 0.5rem; /* Độ dày của Spinner */
+  }

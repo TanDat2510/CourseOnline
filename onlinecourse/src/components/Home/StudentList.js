@@ -60,14 +60,23 @@ const StudentList = () => {
       ) : (
         <div className="course-content">
           <h3>Khóa học & Nội dung</h3>
-          {/* Add your course content and assignments here */}
-          <p>Thông tin về khóa học sẽ được hiển thị ở đây.</p>
+
+          {/* Giới thiệu khóa học */}
+          <div className="course-introduction">
+            <p>
+              Chào mừng bạn đến với khóa học này! Khóa học được thiết kế để giúp bạn
+              nắm vững các kiến thức và kỹ năng cần thiết trong lĩnh vực.
+              Trong suốt quá trình học, bạn sẽ được tiếp cận với nhiều tài liệu hữu ích,
+              bài tập thực hành và dự án thú vị. Hãy sẵn sàng để khám phá và phát triển bản thân!
+            </p>
+          </div>
+
           <div>
-            <button className="add-assignment-button"> Thêm bài tập</button>
+            <button className="add-assignment-button">Thêm bài tập</button>
           </div>
         </div>
       )}
-      
+
     </div>
   );
 };

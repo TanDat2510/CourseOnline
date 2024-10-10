@@ -64,7 +64,7 @@ const Payment = () => {
     };
 
     const startWebSocket = (requestId) => {
-        const socket = new WebSocket('ws://localhost:8080/OnlineCourseWeb/ws');
+        const socket = new WebSocket('ws://localhost:8082/OnlineCourseWeb/ws');
         setSocket(socket);
 
         const interval = setInterval(() => {

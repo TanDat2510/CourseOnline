@@ -5,9 +5,10 @@ import { MyDispatchContext, MyUserContext } from "../../App";
 import APIs, { authAPIs, changePassword, endpoints, requestOTP, verifyOtp } from "../../configs/APIs";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from 'mdb-react-ui-kit';
-import { LoginSocialFacebook } from 'reactjs-social-login';
-import { FacebookLoginButton } from "react-social-login-buttons";
+
 import OtpVerification from "./OtpVerification";
+import { signInWithPopup } from "firebase/auth";
+import { auth, fbProvider } from "../../firebase/config";
 
 const Login = () => {
     const [profile, setProfile] = useState(null);
@@ -26,6 +27,33 @@ const Login = () => {
     const navigate = useNavigate();
     const user = useContext(MyUserContext);
     const dispatch = useContext(MyDispatchContext);
+
+    const FacebookLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, fbProvider);
+            console.log(result.user);
+
+            // Xử lý kết quả thành công
+            const user = result.user;
+            console.log("User info: ", user);
+
+            // Xử lý kết quả thành công - ví dụ: dispatch dữ liệu đến Redux
+            dispatch({
+                type: "login",
+                payload: {
+                    uid: user.uid,
+                    name: user.displayName,
+                    email: user.email,
+                    photoURL: user.photoURL,
+                    accessToken: result._tokenResponse.oauthAccessToken,
+                },
+            });
+            navigate("/");
+        } catch (error) {
+            // Xử lý lỗi
+            console.error('Error logging in with Facebook', error);
+        }
+    }
 
     // useEffect(() => {
     //     if (user !== null) {
@@ -127,33 +155,9 @@ const Login = () => {
                             </div>
                             <MDBBtn className="mb-4 w-100" size="lg" type="submit">Sign in</MDBBtn>
                             {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-                            <div className="divider d-flex align-items-center my-4">
-                                <p className="text-center fw-bold mx-3 mb-0">OR</p>
-                            </div>
                             <div>
-                                {!profile ? 
-                                    <LoginSocialFacebook
-                                        appId="1967856000323374"
-                                        onResolve={(response) => {
-                                            setProfile(response.data);
-                                        }}
-                                        onReject={(error) => {
-                                            console.log(error);
-                                        }}>
-                                        <FacebookLoginButton />
-                                    </LoginSocialFacebook>
-                                : ''}
-                                {profile && 
-                                    <div>
-                                        <h1>{profile.name}</h1>
-                                        <img src={profile.picture.data.url} alt="Profile" />
-                                    </div>
-                                }
+                                <Button onClick={FacebookLogin}>Đăng nhập bằng Facebook</Button>
                             </div>
-                            <MDBBtn className="mb-4 w-100" size="lg" style={{ backgroundColor: '#55acee' }}>
-                                <MDBIcon fab icon="twitter" className="mx-2" />
-                                Continue with Twitter
-                            </MDBBtn>
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>

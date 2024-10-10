@@ -24,8 +24,8 @@ const Footer = () => {
           <Col md={4}>
             <h5>Liên Hệ</h5>
             <p>
-              <i className="fa fa-map-marker"></i> Địa chỉ: 123 Đường ABC, Thành phố XYZ<br/>
-              <i className="fa fa-phone"></i> Điện thoại: (0123) 456-789<br/>
+              <i className="fa fa-map-marker"></i> Địa chỉ: 123 Đường ABC, Thành phố XYZ<br />
+              <i className="fa fa-phone"></i> Điện thoại: (0123) 456-789<br />
               <i className="fa fa-envelope"></i> Email: info@example.com
             </p>
           </Col>
@@ -33,6 +33,19 @@ const Footer = () => {
         <Row className="mt-3">
           <Col className="text-center">
             <p>&copy; 2024 OnlineCourse. All rights reserved.</p>
+          </Col>
+        </Row>
+
+        {/* Phần thêm mã chatbot */}
+        <Row className="mt-3">
+          <Col className="text-center">           
+            <df-messenger
+              intent="WELCOME"
+              chat-title="OnlineCourse-ChatAI"
+              agent-id="f22b55bd-dd05-49d1-a920-7983608e00e3"
+              language-code="en"
+              chat-icon-url="https://example.com/path-to-your-logo.png"
+            ></df-messenger>
           </Col>
         </Row>
       </Container>
